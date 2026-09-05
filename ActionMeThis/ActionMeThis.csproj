@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Dalamud.NET.Sdk/15.0.0">
+  <PropertyGroup>
+    <Version>0.0.0.1</Version>
+    <!-- Manifest fields consumed by DalamudPackager; these end up in ActionMeThis.json -->
+    <Author>Kaliya</Author>
+    <Name>ActionMeThis</Name>
+    <Punchline>Because clicking it yourself was clearly out of the question.</Punchline>
+    <Description>Congratulations, you have installed a plugin whose entire purpose is to press buttons in Penumbra so that you do not have to. A proud day.
+
+How it works, since you were going to ask: it watches your character - weapon drawn, sat down, mounted, swimming, loitering within eight yalms of someone you tolerate - and flips mod settings to match. You can stack conditions, because naturally one was never going to be enough. "Weapon drawn AND near a friend AND not in combat" is, apparently, a thing you needed. It works. Nobody is asking questions.
+
+It also puts every setting back afterwards, so your mod list survives contact with your own decisions. You are welcome.
+
+Not liable for redraws at dramatically inconvenient moments, or for the dawning realisation that your character now has better situational awareness than you do.</Description>
+    <RepoUrl>https://github.com/Liquidize/ActionMeThis</RepoUrl>
+    <Tags>penumbra;mods;automation;conditional;glamour;appearance</Tags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Typed wrappers around Penumbra's IPC surface. -->
+    <PackageReference Include="Penumbra.Api" Version="5.15.1" />
+  </ItemGroup>
+</Project>

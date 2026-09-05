@@ -1,0 +1,9 @@
+.vs/
+.idea/
+obj/
+bin/
+*.user
+
+# Vendored upstream sources kept for reference only - each is its own git clone.
+# Refresh them with reference/refresh.sh instead of committing them here.
+reference/

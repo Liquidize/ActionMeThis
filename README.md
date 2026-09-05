@@ -66,6 +66,18 @@ top of the rule editor.
 Loading screens do not count as a state change: the last known state is held while there
 is no local player, so moving between zones does not revert and re-apply everything.
 
+## Installing
+
+Add this repository in game under `/xlsettings` -> Experimental -> **Custom Plugin
+Repositories**:
+
+```
+https://raw.githubusercontent.com/Liquidize/ActionMeThis/main/repo.json
+```
+
+Save, then find **ActionMeThis** in `/xlplugins`. Penumbra has to be installed too, for
+reasons that should be obvious.
+
 ## Using it
 
 - `/actionmethis` (or `/amt`) — status window: Penumbra's state, which rules are applied
@@ -122,7 +134,29 @@ Reloading after a rebuild is done from the same Dev Tools menu — no game resta
 
 The `.json` manifest is generated from MSBuild properties in `ActionMeThis.csproj`
 (`Name`, `Author`, `Punchline`, `Description`, `Tags`, `RepoUrl`, `Version`). Edit them
-there, not in `bin/`.
+there, not in `bin/` and not in `repo.json` - both are generated.
+
+## Cutting a release
+
+`repo.json` is the custom repository file Dalamud reads. It is the packaged manifest plus
+three download links, all pointing at `releases/latest/download/latest.zip`, so the links
+never change - bumping `AssemblyVersion` is what tells Dalamud an update exists.
+
+1. Bump `<Version>` in `ActionMeThis/ActionMeThis.csproj`.
+2. Regenerate the repository file:
+   ```
+   ./scripts/Generate-RepoJson.ps1
+   ```
+3. Commit both, then tag and push:
+   ```
+   git tag v1.0.0.0 && git push origin main --tags
+   ```
+
+The `Release` workflow builds on any `v*` tag, refuses to continue if the tag and the
+manifest version disagree, and attaches `latest.zip` to the GitHub release. To publish by
+hand instead, build Release and upload `ActionMeThis/bin/Release/ActionMeThis/latest.zip`
+as a release asset - the filename has to stay `latest.zip` for the download links to
+resolve.
 
 ## Penumbra
 

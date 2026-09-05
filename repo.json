@@ -1,0 +1,30 @@
+[
+  {
+    "Author": "Kaliya",
+    "Name": "ActionMeThis",
+    "InternalName": "ActionMeThis",
+    "AssemblyVersion": "1.0.0.0",
+    "Description": "Congratulations, you have installed a plugin whose entire purpose is to press buttons in Penumbra so that you do not have to. A proud day.\n\nHow it works, since you were going to ask: it watches your character - weapon drawn, sat down, mounted, swimming, loitering within eight yalms of someone you tolerate - and flips mod settings to match. You can stack conditions, because naturally one was never going to be enough. \"Weapon drawn AND near a friend AND not in combat\" is, apparently, a thing you needed. It works. Nobody is asking questions.\n\nIt also puts every setting back afterwards, so your mod list survives contact with your own decisions. You are welcome.\n\nNot liable for redraws at dramatically inconvenient moments, or for the dawning realisation that your character now has better situational awareness than you do.",
+    "Punchline": "Because clicking it yourself was clearly out of the question.",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/Liquidize/ActionMeThis",
+    "Tags": [
+      "penumbra",
+      "mods",
+      "automation",
+      "conditional",
+      "glamour",
+      "appearance"
+    ],
+    "DalamudApiLevel": 15,
+    "LoadPriority": 0,
+    "AcceptsFeedback": true,
+    "IsHide": false,
+    "IsTestingExclusive": false,
+    "LastUpdate": 1788631201,
+    "DownloadCount": 0,
+    "DownloadLinkInstall": "https://github.com/Liquidize/ActionMeThis/releases/latest/download/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/Liquidize/ActionMeThis/releases/latest/download/latest.zip",
+    "DownloadLinkTesting": "https://github.com/Liquidize/ActionMeThis/releases/latest/download/latest.zip"
+  }
+]

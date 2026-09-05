@@ -1,0 +1,54 @@
+name: Release
+
+# Publishing a release is what makes the download link in repo.json resolve:
+# it points at releases/latest/download/latest.zip, so the newest release is
+# always what Dalamud hands users.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      # Dalamud.NET.Sdk resolves the game assemblies from this folder.
+      - name: Download Dalamud
+        run: |
+          Invoke-WebRequest -Uri https://goatcorp.github.io/dalamud-distrib/latest.zip -OutFile dalamud.zip
+          Expand-Archive -Force dalamud.zip "$env:AppData\XIVLauncher\addon\Hooks\dev"
+
+      - name: Build
+        run: dotnet build ActionMeThis/ActionMeThis.csproj --configuration Release --nologo
+
+      # The tag and the manifest disagreeing is the easiest way to ship a release
+      # Dalamud will not offer as an update, so fail loudly instead.
+      - name: Check the tag matches the manifest version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          $manifest = Get-Content ActionMeThis/bin/Release/ActionMeThis/ActionMeThis.json -Raw | ConvertFrom-Json
+          $tag = "${{ github.ref_name }}".TrimStart('v')
+          if ($manifest.AssemblyVersion -ne $tag) {
+            throw "Tag $tag does not match manifest version $($manifest.AssemblyVersion). Update <Version> in the csproj."
+          }
+          Write-Host "Tag and manifest agree on $tag."
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ActionMeThis/bin/Release/ActionMeThis/latest.zip
+          generate_release_notes: true
+          fail_on_unmatched_files: true
